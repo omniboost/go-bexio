@@ -27,7 +27,7 @@ func (d *Date) MarshalJSON() ([]byte, error) {
 		return json.Marshal(nil)
 	}
 
-	return json.Marshal(d.Time.Format("2006-01-02T15:04:05"))
+	return json.Marshal(d.Time.Format("2006-01-02"))
 }
 
 func (d *Date) UnmarshalJSON(text []byte) (err error) {
@@ -48,11 +48,6 @@ func (d *Date) UnmarshalJSON(text []byte) (err error) {
 	}
 
 	d.Time, err = time.Parse("2006-01-02", value)
-	if err == nil {
-		return nil
-	}
-
-	d.Time, err = time.Parse("2006-01-02T15:04:05", value)
 	return err
 }
 

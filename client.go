@@ -352,26 +352,41 @@ func CheckResponse(r *http.Response) error {
 }
 
 // {
-//   "ErrorType": "AccountViewError",
-//   "ErrorNumbers": null,
-//   "ErrorMessage": ""
+//   "error_code": 422,
+//   "message": "validation failed",
+//   "errors": {
+//     "entries[0]": {
+//       "type": "custom",
+//       "message": "equal debit and credit account not allowed"
+//     },
+//   }
 // }
 
 type ErrorResponse struct {
 	// HTTP response that caused this error
 	Response *http.Response
 
-	Type    string      `json:"ErrorType"`
-	Numbers interface{} `json:"ErrorNumbers"`
-	Message string      `json:"ErrorMessage"`
+	ErrorCode int    `json:"error_code"`
+	Message   string `json:"message"`
+	Errors    map[string]struct {
+		Type    string `json:"type"`
+		Message string `json:"message"`
+	} `json:"errors"`
 }
 
 func (r *ErrorResponse) Error() string {
-	if r.Type == "" && r.Message == "" {
-		return ""
+	if r.ErrorCode != 0 || r.Message != "" || len(r.Errors) > 0 {
+		errors := []string{}
+		for k, v := range r.Errors {
+			err := fmt.Sprintf("%s: %s", k, v.Message)
+			errors = append(errors, err)
+		}
+		err := strings.Join(errors, ", ")
+		return fmt.Sprintf("%s: (%d): %s", r.Message, r.ErrorCode, err)
 	}
 
-	return fmt.Sprintf("%s: %s", r.Type, r.Message)
+	return ""
+
 }
 
 func checkContentType(response *http.Response) error {
