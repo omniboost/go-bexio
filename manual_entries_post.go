@@ -91,12 +91,12 @@ type ManualEntriesPostRequestBody struct {
 	Entries     []struct {
 		DebitAccountID  int     `json:"debit_account_id"`
 		CreditAccountID int     `json:"credit_account_id"`
-		TaxID           int     `json:"tax_id"`
-		TaxAccountID    int     `json:"tax_account_id"`
+		TaxID           int     `json:"tax_id,omitempty"`
+		TaxAccountID    int     `json:"tax_account_id,omitempty"`
 		Description     string  `json:"description"`
 		Amount          float64 `json:"amount"`
-		CurrencyID      int     `json:"currency_id"`
-		CurrencyFactor  int     `json:"currency_factor"`
+		CurrencyID      int     `json:"currency_id,omitempty"`
+		CurrencyFactor  int     `json:"currency_factor,omitempty"`
 	} `json:"entries"`
 }
 
