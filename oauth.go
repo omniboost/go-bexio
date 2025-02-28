@@ -25,7 +25,7 @@ func NewOauth2Config() *Oauth2Config {
 			ClientSecret: "",
 			Scopes:       []string{scope},
 			Endpoint: oauth2.Endpoint{
-				TokenURL: "https://idp.bexio.com/token",
+				TokenURL: "https://auth.bexio.com/realms/bexio/protocol/openid-connect/token",
 			},
 		},
 	}
