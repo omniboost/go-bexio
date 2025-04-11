@@ -89,8 +89,8 @@ type ManualEntriesPostRequestBody struct {
 	Date        Date   `json:"date"`
 	ReferenceNr string `json:"reference_nr"`
 	Entries     []struct {
-		DebitAccountID  int     `json:"debit_account_id"`
-		CreditAccountID int     `json:"credit_account_id"`
+		DebitAccountID  *int    `json:"debit_account_id,omitempty"`
+		CreditAccountID *int    `json:"credit_account_id,omitempty"`
 		TaxID           int     `json:"tax_id,omitempty"`
 		TaxAccountID    int     `json:"tax_account_id,omitempty"`
 		Description     string  `json:"description"`
