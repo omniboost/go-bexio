@@ -91,8 +91,8 @@ type ManualEntriesPostRequestBody struct {
 	Entries     []struct {
 		DebitAccountID  *int    `json:"debit_account_id,omitempty"`
 		CreditAccountID *int    `json:"credit_account_id,omitempty"`
-		TaxID           int     `json:"tax_id,omitempty"`
-		TaxAccountID    int     `json:"tax_account_id,omitempty"`
+		TaxID           *int    `json:"tax_id,omitempty"`
+		TaxAccountID    *int    `json:"tax_account_id,omitempty"`
 		Description     string  `json:"description"`
 		Amount          float64 `json:"amount"`
 		CurrencyID      int     `json:"currency_id,omitempty"`
